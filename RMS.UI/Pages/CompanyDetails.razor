@@ -1,0 +1,49 @@
+﻿@page "/companyDetails"
+
+@inject NavigationManager navigationManager
+@inject HttpClient Http
+
+<div class="container">
+    <h2 class="text-center fw-bolder text-primary my-4">JOBS</h2>
+    <div class="rounded shadow py-3 px-2">
+        <div class="d-flex justify-content-between">
+            <button class="btn btn-primary" @onclick="AddPostDispatchPage">Add Post</button>
+            <button class="btn btn-primary" @onclick="Logout">Logout</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col">Company Name</th>
+                        <th scope="col">HR Contact No.</th>
+                        <th scope="col">No. of Job Posted</th>
+                        <th scope="col">No. of Candidate Applied</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        if (comp?.Count > 0)
+
+                            foreach (var item in comp)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.HRContact</td>
+                                    <td>@jobPostsTotal.Where(x=>x.CompanyId==item.Id).Count()</td>
+                                    <td>@jobPostsTotal.Join(jobApplied, x => x.Id, y => y.JobPostId, (x, y) => x).Where(x=>x.CompanyId==item.Id).Count()</td>
+                                    <td>@item.Location</td>
+                                    <td class="text-center">
+                                        <a href='viewPost/@item.Id' class="btn btn-primary btn-sm rounded-pill">View</a>
+                                    </td>
+                                </tr>
+                            }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

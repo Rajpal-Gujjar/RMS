@@ -1,0 +1,23 @@
+﻿@page "/logout"
+@inject NavigationManager navigationManager
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject IJSRuntime jsr
+@inject HttpClient Http
+
+
+<div class="container text-danger mt-lg-5 pt-lg-5">
+    <div class="mx-auto mt-lg-5 col-md-6">
+        <div class="text-center py-5 rounded shadow-lg mt-lg-5">
+            <h3>Logout Successfuly</h3>
+            <a @onclick="LogoutPage" class="btn btn-success mt-md-3">OK</a>
+        </div>
+    </div>
+</div>
+
+@code {
+    async void LogoutPage()
+    {
+        await localStorage.RemoveItemAsync("token");
+        navigationManager.NavigateTo("/");
+    }
+}

@@ -1,0 +1,50 @@
+﻿@page "/"
+@inject NavigationManager navigationManager
+@inject HttpClient Http
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject IJSRuntime jsr
+
+<section class="vh-100 gradient-custom">
+    <div class="container py-md-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-lg" style="border-radius: 1rem;">
+                    <div class="card-body p-md-5">
+                        <EditForm Model="jobSeeker" OnValidSubmit="SaveAsync">
+                            <div class="mb-md-5 mt-md-4 pb-5">
+
+                                <h2 class="fw-bold mb-2 text-center text-dark text-uppercase">Login</h2>
+                                <p class="text-secondary text-center mb-5">Please enter your login and password!</p>
+
+                                <div class="form-outline form-white mb-4">
+                                    <label class="form-label" for="typeEmailX">Email / User Name</label>
+                                    <input type="text" @bind=_userName id="typeEmailX" placeholder="Email / User Name" class="form-control form-control-lg" />
+                                </div>
+
+                                <div class="form-outline form-white mb-4">
+                                    <label class="form-label" for="typePasswordX">Password</label>
+                                    <input type="password" @bind=_password id="typePasswordX" placeholder="Password" class="form-control form-control-lg" />
+                                </div>
+
+                                <div class="@validationTextColor">
+                                    @userValidateMessage
+                                </div>
+
+                                <div class="d-flex flex-row justify-content-md-between flex-wrap">
+                                    <div class="text-center mb-2">
+                                        <button class="btn btn-success shadow px-5" type="submit">Login</button>
+                                    </div>
+                                    <div class="text-center mb-2">
+                                        <button class="btn btn-primary shadow px-5" @onclick="SignUpDispatchPage" type="submit">SignUp</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </EditForm>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

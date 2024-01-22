@@ -1,0 +1,178 @@
+﻿@page "/signUpJobSeeker"
+@page "/signUpJobSeeker/{UserId:int}"
+
+@inject NavigationManager navigationManager
+@inject HttpClient Http
+@inject IJSRuntime JsRuntime
+
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Registration Form</h3>
+                        <EditForm Model="jobSeeker" OnValidSubmit="Save">
+                            <DataAnnotationsValidator />
+                            <div class="row">
+                                <div class="col-md-4 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="name">Name</label>
+                                        <InputText @bind-Value="jobSeeker.Name" id="name" placeholder="Name" class="form-control" />
+                                        <ValidationMessage For="@(() => jobSeeker.Name)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="phone">Phone</label>
+                                        <InputNumber @bind-Value="jobSeeker.Phone" id="phone" placeholder="Phone Number" class="form-control" />
+                                        <ValidationMessage For="@(() => jobSeeker.Phone)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="email">Email</label>
+                                        <InputText @bind-Value="jobSeeker.Email" id="email" placeholder="Email" class="form-control" />
+                                        <ValidationMessage For="@(() => jobSeeker.Email)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="dob">Date of Birth</label>
+                                        <InputDate @bind-Value="jobSeeker.DateOfBirth" id="dob" placeholder="Date of Birth" class="form-control" />
+                                        <ValidationMessage For="@(() => jobSeeker.DateOfBirth)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="gender">Gender</label><br />
+                                        <InputSelect @bind-Value="jobSeeker.Gender" class="select form-control">
+                                            <option value="">--Select Option--</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => jobSeeker.Gender)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="language">Language</label><br />
+                                        <InputSelect @bind-Value="jobSeeker.Language" class="select form-control">
+                                            <option value="">--Select Option--</option>
+                                            <option value="Hindi">Hindi</option>
+                                            <option value="English">English</option>
+                                            <option value="Punjabi">Punjabi</option>
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => jobSeeker.Language)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="qualification">Higher Qualification</label><br />
+                                        <InputSelect @bind-Value="jobSeeker.Qualification" class="select form-control">
+                                            <option value="">--Select Option--</option>
+                                            <option value="PG">PG</option>
+                                            <option value="UG">UG</option>
+                                            <option value="Diploma">Any Diploma</option>
+                                            <option value="12th">12th</option>
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => jobSeeker.Qualification)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="passingYear">Passing Year</label><br />
+                                        <InputSelect @bind-Value="jobSeeker.PassingYear" class="select form-control">
+                                            <option value=0>--Select Option--</option>
+                                            <option value="2024">2024</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2019">2019</option>
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => jobSeeker.PassingYear)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="category">Category</label><br />
+                                        <InputSelect @bind-Value="jobSeeker.Category" class="select form-control">
+                                            <option value="">--Select Option--</option>
+                                            <option value="SaleMarketing">Sale & Marketing</option>
+                                            <option value="IT">IT</option>
+                                            <option value="Engineering">Engineering</option>
+                                            <option value="FinanceAccount">Finance & Account</option>
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => jobSeeker.Category)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="state">State</label><br />
+                                        <InputSelect @bind-Value="jobSeeker.State" class="select form-control">
+                                            <option value="">--Select Option--</option>
+                                            <option value="Haryana">Haryana</option>
+                                            <option value="Himachal Pardesh">Himachal Pardesh</option>
+                                            <option value="Madhya Pardesh">Madhya Pardesh</option>
+                                            <option value="Punjab">Punjab</option>
+                                            <option value="Rajasthan">Rajasthan</option>
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => jobSeeker.State)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="city">City</label>
+                                        <InputText @bind-Value="jobSeeker.City" id="city" placeholder="City" class="form-control" />
+                                        <ValidationMessage For="@(() => jobSeeker.City)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="experience">Experience in Years</label><br />
+                                        <InputSelect @bind-Value="jobSeeker.Exprience" class="select form-control">
+                                            <option value="">--Select Option--</option>
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => jobSeeker.Exprience)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="password">Password</label>
+                                        <input type="password" @bind="jobSeeker.Password" placeholder="Password" id="password" class="form-control" />
+                                        <ValidationMessage For="@(() => jobSeeker.Password)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="conformPassword">Conform Password</label>
+                                        <input type="password" @bind="jobSeeker.ConfirmPassword" id="confirmPassword" placeholder="Confirm Password" class="form-control" />
+                                        <ValidationMessage For="@(() => jobSeeker.ConfirmPassword)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-2">
+                                <button type="submit" class="btn btn-success">Save</button>
+                                <button class="btn btn-primary" @onclick="Cancel">Cancel</button>
+                            </div>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/RMS.UI/.vs
+/RMS.UI/bin/Debug/net6.0/wwwroot/_framework
+/RMS.UI/bin/Debug/net6.0
+/RMS.UI/obj

@@ -1,0 +1,56 @@
+﻿@page "/viewPost"
+@page "/viewPost/{userId:int}"
+@inject NavigationManager navigationManager
+@inject HttpClient Http
+
+<div class="container">
+    <h2 class="text-center fw-bolder text-primary my-4">JOBS</h2>
+    <div class="rounded shadow py-3 px-2">
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-primary" href="addPost">Add Post</a>
+            <a class="btn btn-primary" @onclick="BackPage">Back</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col">Company Name</th>
+                        <th scope="col">NoOfPosts.</th>
+                        <th scope="col">Qualification</th>
+                        <th scope="col">Experience</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        if (jobPosts?.Count > 0)
+                            foreach (var item in jobPosts)
+                            {
+                                <tr>
+                                    <td>@companies.FirstOrDefault(x=>x.Id==item.CompanyId).Name</td>
+                                    <td>@item.NoOfPosts</td>
+                                    <td>@item.Qualification</td>
+                                    <td>@item.Experience</td>
+                                    <td>@item.Location</td>
+                                    <td class="d-flex justify-content-around">
+                                        <a href="editPost/@item.Id"><i class="oi oi-pencil text-primary"></i></a> |
+                                        <a href="deletePost/@item.Id"><i class="oi oi-trash text-danger"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" @onclick="PreBtn"><i class="oi oi-arrow-left"></i></button>
+            <button class="btn btn-primary mx-3" @onclick="NextBtn"><i class="oi oi-arrow-right"></i></button>
+            <select @bind="@Take" @onclick="PaginationRecordView" class="select col-xs-2 text-center rounded">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+            </select>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,129 @@
+﻿@page "/addPost"
+@page "/editPost/{userId:int}"
+
+@inject NavigationManager navigationManager
+@inject HttpClient Http
+@inject IJSRuntime JsRuntime
+
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">@Title Post</h3>
+                        <EditForm Model="jobPost" OnInvalidSubmit="Save">
+                            <DataAnnotationsValidator />
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="requiredDate">Required Date</label>
+                                        <InputDate @bind-Value="jobPost.RequiredDate" id="requiredDate" placeholder="Required Date" class="form-control" />
+                                        <ValidationMessage For="@(() => jobPost.RequiredDate)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="category">Category</label><br />
+                                        <InputSelect @bind-Value="jobPost.Category" class="select form-control">
+                                            <option value="">--Select--</option>
+                                            <option value="SaleMarketing">Sale & Marketing</option>
+                                            <option value="IT">IT</option>
+                                            <option value="Engineering">Engineering</option>
+                                            <option value="FinanceAccount">Finance & Account</option>
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => jobPost.Category)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="companyName">Company Name</label><br />
+                                        <InputSelect @bind-Value="jobPost.CompanyId" class="select form-control">
+                                            <option value="">--Select Any Option--</option>
+                                            <option value="1">Step2gen</option>
+                                            <option value="2">Infosys</option>
+                                            <option value="3">HCL</option>
+                                            <option value="4">Airtel</option>
+                                            <option value="5">Reebok</option>
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => jobPost.CompanyId)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="noOfPosts">No. of Posts</label>
+                                        <InputNumber @bind-Value="jobPost.NoOfPosts" id="noOfPosts" placeholder="Total Vacancy" class="form-control" />
+                                        <ValidationMessage For="@(() => jobPost.NoOfPosts)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="location">Location</label><br />
+                                        <InputSelect @bind-Value="jobPost.Location" class="select form-control">
+                                            <option value="">--Select Any Option--</option>
+                                            <option value="Haryana">Haryana</option>
+                                            <option value="Himachal Pardesh">Himachal Pardesh</option>
+                                            <option value="Madhya Pardesh">Madhya Pardesh</option>
+                                            <option value="Punjab">Punjab</option>
+                                            <option value="Rajasthan">Rajasthan</option>
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => jobPost.Location)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="salaryRange">Salary</label><br />
+                                        <InputSelect @bind-Value="jobPost.Salary" class="select form-control">
+                                            <option value="">--Select Any Option--</option>
+                                            <option value="100000">100000</option>
+                                            <option value="200000">200000</option>
+                                            <option value="300000">300000</option>
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => jobPost.Salary)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-6">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="qualification">Higher Qualification</label><br />
+                                        <InputSelect @bind-Value="jobPost.Qualification" class="select form-control">
+                                            <option value="">--Select Any Option--</option>
+                                            <option value="PG">PG</option>
+                                            <option value="UG">UG</option>
+                                            <option value="Diploma">Any Diploma</option>
+                                            <option value="12th">12th</option>
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => jobPost.Qualification)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="experience">Experience in Years</label><br />
+                                        <InputSelect @bind-Value="jobPost.Experience" class="select form-control">
+                                            <option value="">--Select Any Option--</option>
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => jobPost.Experience)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-2">
+                                <button class="btn btn-success"@* @onclick="Save"*@>Save</button>
+                                <button class="btn btn-primary" @onclick="Cancel">Cancel</button>
+                            </div>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
